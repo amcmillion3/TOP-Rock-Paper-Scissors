@@ -7,6 +7,9 @@ const rockBtn = document.getElementById("rock");
 const paperBtn = document.getElementById("paper");
 const scissorsBtn = document.getElementById("scissors");
 const resetBtn = document.querySelector(".reset-btn");
+const modal = document.querySelector(".modal");
+const modalText = document.querySelector(".modal-text");
+const modalBtn = document.querySelector(".modal-btn");
 
 // Computer Choice
 function generateComputerChoice() {
@@ -32,6 +35,10 @@ function win(playerChoice, computerChoice) {
     setTimeout(() => {
         getPlayerChoiceDiv.classList.remove("green-glow");
     }, 300);
+    if(playerScore === 5) {
+        modal.style.display = "block";
+        modalText.textContent = `You Win The Game! Yay!`;
+    };
 };
 
 // Lose function
@@ -44,6 +51,10 @@ function lose(playerChoice, computerChoice) {
     setTimeout(() => {
         getPlayerChoiceDiv.classList.remove("red-glow");
     }, 300);
+    if(computerScore === 5) {
+        modal.style.display = "block";
+        modalText.textContent = `Sorry. You Lose.`;
+    };
 };
 
 function draw(playerChoice) {
@@ -92,12 +103,20 @@ function playerChoice() {
 
 playerChoice();
 
-// reset button
+// Modal button
+modalBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+    reset();
+})
+
+// Reset button
 resetBtn.addEventListener("click", () => {
     reset();
 });
 
 function reset() {
-    playerScoreSpan.innerHTML = 0;
-    computerScoreSpan.innerHTML = 0;
+    playerScore = 0;
+    computerScore = 0;
+    playerScoreSpan.innerHTML = playerScore;
+    computerScoreSpan.innerHTML = computerScore;
 };
